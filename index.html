@@ -18,7 +18,7 @@
         --accent: #ff6b3d;
         --accent-2: #1fa89c;
         --accent-3: #ffd166;
-        --header-offset: 104px;
+        --header-offset: 52px;
       }
 
       * {
@@ -56,6 +56,7 @@
       .page {
         position: relative;
         overflow-x: hidden;
+        padding-top: var(--header-offset);
       }
 
       .page::before,
@@ -85,12 +86,14 @@
       }
 
       header {
-        padding: 24px 5vw 18px;
+        padding: 6px 5vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: sticky;
+        position: fixed;
         top: 0;
+        left: 0;
+        right: 0;
         z-index: 5;
         background: rgba(246, 243, 238, 0.88);
         backdrop-filter: blur(10px);
@@ -308,19 +311,19 @@
 
       @media (max-width: 720px) {
         :root {
-          --header-offset: 120px;
+          --header-offset: 72px;
         }
 
         header {
           flex-direction: column;
           align-items: flex-start;
-          gap: 12px;
+          gap: 6px;
         }
 
         nav {
           display: flex;
           flex-wrap: wrap;
-          gap: 8px;
+          gap: 6px;
         }
 
         nav a {
