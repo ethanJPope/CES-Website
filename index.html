@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ethan Pope | Student Builder</title>
+    <meta
+      name="description"
+      content="Ethan Pope is a 16-year-old builder interested in microcontrollers, programming, and robotics. Invited to CES after a Hack Club hackathon project training the SO-101 robotic arm to play Spoons."
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Sora:wght@300;400;600;700&display=swap");
+
+      :root {
+        --ink: #0f1413;
+        --ink-soft: #1a2220;
+        --paper: #f6f3ee;
+        --mist: #e6e0d6;
+        --accent: #ff6b3d;
+        --accent-2: #1fa89c;
+        --accent-3: #ffd166;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Sora", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+            1000px 600px at 10% 10%,
+            rgba(255, 209, 102, 0.25),
+            transparent 60%
+          ),
+          radial-gradient(
+            800px 500px at 90% 20%,
+            rgba(31, 168, 156, 0.2),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 700px at 40% 90%,
+            rgba(255, 107, 61, 0.2),
+            transparent 65%
+          ),
+          var(--paper);
+        min-height: 100vh;
+      }
+
+      .page {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page::before,
+      .page::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(0px);
+        opacity: 0.2;
+        z-index: 0;
+      }
+
+      .page::before {
+        width: 420px;
+        height: 420px;
+        background: conic-gradient(from 120deg, var(--accent), var(--accent-2), var(--accent));
+        top: -140px;
+        right: -180px;
+      }
+
+      .page::after {
+        width: 360px;
+        height: 360px;
+        background: linear-gradient(135deg, var(--accent-3), var(--accent-2));
+        bottom: -180px;
+        left: -140px;
+      }
+
+      header {
+        padding: 36px 5vw 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .logo {
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        margin-left: 18px;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 32px;
+        padding: 40px 7vw 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-card {
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(15, 20, 19, 0.08);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 30px 60px rgba(15, 20, 19, 0.08);
+        backdrop-filter: blur(8px);
+        animation: floatUp 0.8s ease forwards;
+        opacity: 0;
+      }
+
+      .hero-card:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      h1 {
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: clamp(2.6rem, 4vw, 3.8rem);
+        line-height: 1.05;
+        margin: 0 0 16px;
+      }
+
+      .headline {
+        font-size: 1.1rem;
+        color: var(--ink-soft);
+        line-height: 1.6;
+        margin-bottom: 22px;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .tag {
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--mist);
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--ink);
+        border: 1px solid transparent;
+      }
+
+      .cta.primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(255, 107, 61, 0.3);
+      }
+
+      .cta.secondary {
+        border-color: rgba(15, 20, 19, 0.2);
+        background: #fff;
+      }
+
+      section {
+        padding: 24px 7vw 40px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .section-title {
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        margin-bottom: 16px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 22px;
+        border: 1px solid rgba(15, 20, 19, 0.08);
+        box-shadow: 0 20px 40px rgba(15, 20, 19, 0.08);
+        animation: fadeIn 0.9s ease forwards;
+        opacity: 0;
+      }
+
+      .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+
+      .card:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+
+      .stat {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-2);
+      }
+
+      .project {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+        align-items: center;
+      }
+
+      .project-panel {
+        background: var(--ink);
+        color: #fff;
+        padding: 26px;
+        border-radius: 22px;
+      }
+
+      .project-panel p {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .project-highlights {
+        display: grid;
+        gap: 16px;
+      }
+
+      .project-highlight {
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(15, 20, 19, 0.08);
+      }
+
+      .callout {
+        background: linear-gradient(120deg, rgba(255, 107, 61, 0.12), rgba(31, 168, 156, 0.15));
+        border-radius: 26px;
+        padding: 28px;
+        border: 1px solid rgba(15, 20, 19, 0.08);
+      }
+
+      footer {
+        padding: 40px 7vw 50px;
+        font-size: 0.9rem;
+        color: rgba(15, 20, 19, 0.6);
+      }
+
+      @keyframes floatUp {
+        from {
+          transform: translateY(18px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          transform: translateY(14px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 720px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        nav {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        nav a {
+          margin-left: 0;
+        }
+
+        .hero {
+          padding-top: 20px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="logo">Ethan Pope</div>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#project">Project</a>
+          <a href="#connect">Connect</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" id="about">
+          <div class="hero-card">
+            <h1>
+              I build with curiosity, code, and a little bit of chaos.
+            </h1>
+            <p class="headline">
+              I'm Ethan Pope, a 16-year-old high school student focused on
+              microcontrollers, programming, and robotics. I was invited to CES
+              by the CEO of AMD after my Hack Club hackathon project: training
+              the SO-101 robotic arm to play the card game Spoons.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Student Builder</span>
+              <span class="tag">Robotics</span>
+              <span class="tag">AI + ML</span>
+              <span class="tag">Microcontrollers</span>
+            </div>
+            <div class="cta-row">
+              <a class="cta primary" href="mailto:ethan.j.pope09@gmail.com">Email Me</a>
+              <a class="cta secondary" href="https://github.com/ethanJPope" target="_blank" rel="noopener">GitHub</a>
+              <a class="cta secondary" href="https://www.linkedin.com/in/ethan-pope-572043313" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <h2 class="section-title">Quick Snapshot</h2>
+            <div class="grid">
+              <div class="card">
+                <div class="stat">2.5 days</div>
+                <p>
+                  Hackathon sprint with my team to learn the stack, train the
+                  model, and ship a working demo.
+                </p>
+              </div>
+              <div class="card">
+                <div class="stat">First time</div>
+                <p>
+                  Training an AI model and working with a robotic arm, and it
+                  came together in a real game.
+                </p>
+              </div>
+              <div class="card">
+                <div class="stat">CES invite</div>
+                <p>
+                  Recognized by the CEO of AMD for creativity, grit, and a fun
+                  robotics demo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="project">
+          <h2 class="section-title">Project Highlight</h2>
+          <div class="project">
+            <div class="project-panel">
+              <h3>SO-101 Robotic Arm x Spoons</h3>
+              <p>
+                At a Hack Club hackathon, my team and I trained the SO-101
+                robotic arm to play the card game Spoons. We built the training
+                workflow, tested timing and coordination, and got the arm to
+                respond to real gameplay. That project earned me an invitation
+                to CES from the CEO of AMD.
+              </p>
+            </div>
+            <div class="project-highlights">
+              <div class="project-highlight">
+                <strong>Challenge:</strong> Learn robotics + AI fast with a
+                brand-new hardware stack.
+              </div>
+              <div class="project-highlight">
+                <strong>Breakthrough:</strong> We tuned the model to recognize
+                game states and trigger the arm at the right moment.
+              </div>
+              <div class="project-highlight">
+                <strong>Outcome:</strong> A working demo that showed teamwork,
+                fast learning, and fun engineering.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">What I Care About</h2>
+          <div class="grid">
+            <div class="card">
+              <h3>Robotics in the real world</h3>
+              <p>
+                I want to build systems that move, sense, and react. I'm drawn
+                to anything that blends hardware and software.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Learning by shipping</h3>
+              <p>
+                I learn fastest when I'm making things, testing ideas, and
+                iterating with a team.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Mentors + collaborators</h3>
+              <p>
+                I'm excited to meet people who build, teach, or challenge me to
+                go further.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="connect">
+          <div class="callout">
+            <h2 class="section-title">Let's connect at CES</h2>
+            <p>
+              I'm looking for opportunities, projects, and mentors in robotics
+              and AI. If you want to collaborate or chat, reach out and say
+              hello.
+            </p>
+            <div class="cta-row">
+              <a class="cta primary" href="mailto:ethan.j.pope09@gmail.com">ethan.j.pope09@gmail.com</a>
+              <a class="cta secondary" href="https://github.com/ethanJPope" target="_blank" rel="noopener">github.com/ethanJPope</a>
+              <a class="cta secondary" href="https://www.linkedin.com/in/ethan-pope-572043313" target="_blank" rel="noopener">LinkedIn Profile</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        Built with curiosity, caffeine, and a love of robotics.
+      </footer>
+    </div>
+  </body>
+</html>
